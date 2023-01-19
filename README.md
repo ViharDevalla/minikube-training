@@ -49,10 +49,16 @@ The idea is to create a minimal GET API with little to no dependency. So, I choo
 
 Inbuilt modules used : `http` and `json`
 
-`http.serve`
+Resource for Web Hosting:
+[OOTB Python Web Hosting](https://pythonbasics.org/webserver/)
+[Difference b/w 127.0.0.1,localhost,0.0.0.0](https://stackoverflow.com/questions/20778771/what-is-the-difference-between-0-0-0-0-127-0-0-1-and-localhost)
+
+`http.server`
 This module is packaged within Python and is easily accessible to start a **SimpleHTTPServer**.
 
 *P.S. It can be used to host file directory for quick file transfer using `python3 -m http.server`*
+
+
 
 
 ## Tests
@@ -68,6 +74,9 @@ Functions has 2 tests - one to check working of the function, other to mock the 
 
 API Server has 2 tests, one to test success and other to check 404 response of other endpounts
 
+**Resources**:
+[Intro to Mocking in Python](https://www.toptal.com/python/an-introduction-to-mocking-in-python)
+
 # Docker
 Now that the Server code is ready for deploy. The next step is containerizing it. Choosing a good base image is vital for the size of the image and the operations that can be done inside image.
 
@@ -81,7 +90,8 @@ But in my case, I have **zero dependencies** which allows me to use the Alpine b
 
 Also the python server runs using a non-root user called **"worker"** instead of the usual root user. This could prevent security flaws like the [2019 RunC Bug](https://www.sdxcentral.com/articles/news/kubernetes-docker-containerd-impacted-by-runc-container-runtime-bug/2019/02/) from being re-engineered.
 
-
+Resources:
+[Making Small Docker Images](https://towardsdatascience.com/slimming-down-your-docker-images-275f0ca9337e)
 
 # Minikube
 
