@@ -103,6 +103,11 @@ This can be changed by either `unset KUBECONFIG` or exporting a different path u
 
 This can be made persistant using `.bashrc` or other ways to change env.
 
+*P.S. List all the running resources in MiniKube using*
+```bash
+for i in `kubectl api-resources | awk '{print $1}'`; do kubectl get $i; done
+```
+
 ## Docker inside Minikube
 Since, this project requires a Private Docker image as the container for the pods, we need to export the docker-env to access the local docker registry.
 
