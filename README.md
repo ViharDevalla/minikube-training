@@ -117,3 +117,5 @@ This can be done by `eval $(minikube -p minikube docker-env)
 A build script `build_deploy.sh` using bash has been configured to run all the docker and kubectl commands.
 
 This is the entrypoint to the entire project.
+
+P.S. `delete_deploy.sh` has also been created to delete the Deployment, Service and Ingress services.
