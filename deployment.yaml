@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: athlete-server-deploy
+spec:
+  selector:
+    matchLabels:
+      app: athlete
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: athlete
+    spec:
+      containers:
+      - name: athlete-container
+        image: vihar/athlete-server
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 80

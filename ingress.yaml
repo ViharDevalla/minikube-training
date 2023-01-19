@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+
+kind: Ingress
+metadata:
+  name: ingress-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: local.arcesium.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: athlete-server-deploy
+                port:
+                  number: 80
