@@ -25,7 +25,7 @@ echo -e
 echo -e
 echo "Waiting for Server to deploy"
 sleep 5
-curl $(minikube ip)/athlete 
+curl $(minikube ip)/athlete
 sleep 5
 curl $(minikube ip)/athlete
 

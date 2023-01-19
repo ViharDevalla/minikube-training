@@ -10,7 +10,6 @@ Table of contents
 - [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Server](#server)
-  - [Objective](#objective)
   - [Building a Server](#building-a-server)
   - [Tests](#tests)
 - [Docker](#docker)
@@ -40,8 +39,7 @@ $ chmod +x build_deploy.sh
 
 # Server
 
-## Objective
-A Simple HTTP Server which returns a static JSON key value of myFavoriteAthlete when a GET request is called
+The objective is to build a Simple HTTP Server which returns a static JSON key value of myFavoriteAthlete when a GET request is called
 
 ## Building a Server
 
@@ -51,8 +49,8 @@ The idea is to create a minimal GET API with little to no dependency. So, I choo
 
 Inbuilt modules used : `http` and `json`
 
-`http.server`
-This module is packaged within Python and is easily accessible to start a SimpleHTTPServer.
+`http.serve`
+This module is packaged within Python and is easily accessible to start a **SimpleHTTPServer**.
 
 *P.S. It can be used to host file directory for quick file transfer using `python3 -m http.server`*
 
@@ -79,7 +77,9 @@ Read More about why Alpine Images arent the best image for Python [here](https:/
 
 But in my case, I have **zero dependencies** which allows me to use the Alpine build with no issues.
 
-P.S. In case of dependencies, the better Python Image for Docker could be  `slim-bullseye` (**128MB**)
+*P.S. In case of dependencies, the better Python Image for Docker could be  `slim-bullseye` (**128MB**)*
+
+Also the python server runs using a non-root user called **"worker"** instead of the usual root user. This could prevent security flaws like the [2019 RunC Bug](https://www.sdxcentral.com/articles/news/kubernetes-docker-containerd-impacted-by-runc-container-runtime-bug/2019/02/) from being re-engineered.
 
 
 
@@ -118,4 +118,10 @@ A build script `build_deploy.sh` using bash has been configured to run all the d
 
 This is the entrypoint to the entire project.
 
-P.S. `delete_deploy.sh` has also been created to delete the Deployment, Service and Ingress services.
+**If you want to serve the Ingress on a specific host name:**
+1. Uncomment the last line in `ingress.yaml` and change the host name to the appropriate name
+2. Manually add the hostname and IP (`minikube ip` in case of local deploy) to the /etc/hosts file
+
+
+
+*P.S. `delete_deploy.sh` has also been created to delete the Deployment, Service and Ingress services.*

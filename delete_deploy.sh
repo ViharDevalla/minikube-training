@@ -1,3 +1,4 @@
+docker image rm vihar/athlete-server
 kubectl delete deployment athlete-server-deploy
 kubectl delete service athlete-server-deploy
 kubectl delete ingress ingress-app

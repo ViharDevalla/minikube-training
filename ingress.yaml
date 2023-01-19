@@ -16,3 +16,4 @@ spec:
                 name: athlete-server-deploy
                 port:
                   number: 80
+    #host: local.arcesium.org
