@@ -15,6 +15,8 @@ Table of contents
   - [Tests](#tests)
 - [Docker](#docker)
 - [Minikube](#minikube)
+  - [Docker inside Minikube](#docker-inside-minikube)
+  - [Deployment and Ingress Manifests](#deployment-and-ingress-manifests)
 - [Build Deploy Script](#build-deploy-script)
 
 
@@ -49,7 +51,10 @@ The idea is to create a minimal GET API with little to no dependency. So, I choo
 
 Inbuilt modules used : `http` and `json`
 
-No additional modules have been used.
+`http.server`
+This module is packaged within Python and is easily accessible to start a SimpleHTTPServer.
+
+*P.S. It can be used to host file directory for quick file transfer using `python3 -m http.server`*
 
 
 ## Tests
@@ -66,23 +71,49 @@ Functions has 2 tests - one to check working of the function, other to mock the 
 API Server has 2 tests, one to test success and other to check 404 response of other endpounts
 
 # Docker
-Now that the
+Now that the Server code is ready for deploy. The next step is containerizing it. Choosing a good base image is vital for the size of the image and the operations that can be done inside image.
+
+After comparing the sizes of the Python Docker Images by tags in [DockerHub](https://hub.docker.com/_/python/tags), it is seen that the **Alpine Image** is the smallest at **48MB**.
+
+Read More about why Alpine Images arent the best image for Python [here](https://pythonspeed.com/articles/base-image-python-docker-images/#:~:text=Why%20you%20shouldn't%20use,I%20recommend%20against%20using%20Alpine.) and [here](https://pythonspeed.com/articles/alpine-docker-python/)
+
+But in my case, I have **zero dependencies** which allows me to use the Alpine build with no issues.
+
+P.S. In case of dependencies, the better Python Image for Docker could be  `slim-bullseye` (**128MB**)
+
 
 
 # Minikube
 
+Install Minikube from their site [here](https://minikube.sigs.k8s.io/docs/start/)
 
-Linux (manual installation)
-```bash
-$ git clone https://github.com/ViharDevalla/minikube-training
-$ chmod +x build_deploy.sh
-```
+
+Minikube on default installation checks for **KUBECONFIG** env to restore or use the existing kubeconfig.
+This can be changed by either `unset KUBECONFIG` or exporting a different path using `export KUBECONFIG <newPath>`.
+
+This can be made persistant using `.bashrc` or other ways to change env.
+
+## Docker inside Minikube
+Since, this project requires a Private Docker image as the container for the pods, we need to export the docker-env to access the local docker registry.
+
+This can be done by `eval $(minikube -p minikube docker-env)
+`
+
+## Deployment and Ingress Manifests
+`deployment.yaml` has the manifest to deploy the server using the container. Current manifest uses *1* replica and opens port 80 for access to the container webserver.
+
+*P.S. Dont forget to expose the deployment throught the node port for the Ingress Setup later*
+
+`ingress.yaml` has the manifest for the **NGINX Ingress Controller** which is used as the **reverse proxy** and the **load balancer** to the server we have deployed. This combined with the Deployment allows for good scaling for the server
+
+
+
+*P.S. The current manifest allows all hosts to access the server using the Ingress IP (**minikube ip** in this case). This can be changed by adding a particular host in manifest and configuring the /etc/hosts file with sude perms*
+
+
 
 # Build Deploy Script
 
+A build script `build_deploy.sh` using bash has been configured to run all the docker and kubectl commands.
 
-Linux (manual installation)
-```bash
-$ git clone https://github.com/ViharDevalla/minikube-training
-$ chmod +x build_deploy.sh
-```
+This is the entrypoint to the entire project.
