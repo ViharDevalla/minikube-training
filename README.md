@@ -1,1 +1,1 @@
-# minikube-training
+# Scalable API - Using Docker, MiniKube with Ingress
