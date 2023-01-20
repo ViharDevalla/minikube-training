@@ -5,8 +5,6 @@ RUN adduser -D worker
 USER worker
 WORKDIR /home/worker
 COPY --chown=worker:worker . .
-COPY . /app
-WORKDIR app
-EXPOSE 8000
+EXPOSE 80
 CMD python3 test.py
 CMD [ "python3", "server.py"]
