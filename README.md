@@ -140,3 +140,8 @@ This is the entrypoint to the entire project.
 
 
 *P.S. `delete_deploy.sh` has also been created to delete the Deployment, Service and Ingress services.*
+
+# Miscelleneous Bugs and Fixes
+
+- **MiniKube IP** is not accessible from the host machine. This can be fixed by adding the IP to the /etc/hosts file
+- **Ingress IP** is not accessible from the host machine. **Fix** : https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync
