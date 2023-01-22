@@ -14,7 +14,19 @@ spec:
     spec:
       containers:
       - name: athlete-container
-        image: vihar/athlete-server
-        imagePullPolicy: Never
+        image: vihardevalla/athlete-server
         ports:
           - containerPort: 80
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: athlete-service
+spec:
+  selector:
+    app: athlete
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
