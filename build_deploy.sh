@@ -7,8 +7,8 @@ if [ $? -eq 0 ];
 then
     kill $PID
     unset KUBECONFIG
-    #minikube start
-    #minikube addons enable ingress
+    minikube start
+    minikube addons enable ingress
 
     eval $(minikube -p minikube docker-env)
 

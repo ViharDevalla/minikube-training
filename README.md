@@ -48,16 +48,22 @@ File: `server.py`
 
 The idea is to create a minimal GET API with little to no dependency. So, I choose **Python** as the language for the server and used its inbuilt modules to serve GET requests.
 
-Inbuilt modules used : `http` and `json`
+Inbuilt modules used : `http`, `json`,`os`and `sys`
 
-Resource for Web Hosting:
-[OOTB Python Web Hosting](https://pythonbasics.org/webserver/)
-[Difference b/w 127.0.0.1,localhost,0.0.0.0](https://stackoverflow.com/questions/20778771/what-is-the-difference-between-0-0-0-0-127-0-0-1-and-localhost)
+`sys` has been used to create a test mode for the server to be hosted on a different port for testing.
+
+`os` has been used to get the PID of the app incase we want to terminate the test/prod process.
+
+`json` has been used o convert Python dict to JSON output sent as response
 
 `http.server`
 This module is packaged within Python and is easily accessible to start a **SimpleHTTPServer**.
 
 *P.S. It can be used to host file directory for quick file transfer using `python3 -m http.server`*
+
+**Resource for Web Hosting**:
+- [OOTB Python Web Hosting](https://pythonbasics.org/webserver/)
+- [Difference b/w 127.0.0.1, localhost, 0.0.0.0](https://stackoverflow.com/questions/20778771/what-is-the-difference-between-0-0-0-0-127-0-0-1-and-localhost)
 
 
 
@@ -109,15 +115,19 @@ This can be made persistant using `.bashrc` or other ways to change env.
 for i in `kubectl api-resources | awk '{print $1}'`; do kubectl get $i; done
 ```
 
+*P.S. We can get the status of MiniKube using ` minikube status ` to confirm if Minikube is running or not*
+
 ## Docker inside Minikube
 Since, this project requires a Private Docker image as the container for the pods, we need to export the docker-env to access the local docker registry.
 
 This can be done by `eval $(minikube -p minikube docker-env)`
 
+**The Docker build must happen after this step, else the image will not be recognised by minikube**
+
 ## Deployment and Ingress Manifests
 `deployment.yaml` has the manifest to deploy the server using the container. Current manifest uses *1* replica and opens port 80 for access to the container webserver.
 
-*P.S. Dont forget to expose the deployment throught the node port for the Ingress Setup later*
+*P.S. Dont forget to expose the deployment port using services*
 
 `ingress.yaml` has the manifest for the **NGINX Ingress Controller** which is used as the **reverse proxy** and the **load balancer** to the server we have deployed. This combined with the Deployment allows for good scaling for the server
 
@@ -136,8 +146,8 @@ A build script `build_deploy.sh` using bash has been configured to run all the d
 This is the entrypoint to the entire project.
 
 **If you want to serve the Ingress on a specific host name:**
-1. Uncomment the last line in `ingress.yaml` and change the host name to the appropriate name
-2. Manually add the hostname and IP (`minikube ip` in case of local deploy) to the /etc/hosts file
+1. Uncomment the  line containing `- host:` in `ingress.yaml` and change the host name to the appropriate name
+2. Manually add the hostname and IP (`minikube ip` in case of local deploy) to the `/etc/hosts` file
 
 
 
@@ -146,4 +156,4 @@ This is the entrypoint to the entire project.
 # Miscelleneous Bugs and Fixes
 - **Docker Context Matters** : Remember to connect Minikube to docker daemon i.e. `eval $(minikube -p minikube docker-env)` **before** building the image as MiniKube only gets context and cannot access the registry details set before the `eval`.
 - **MiniKube IP** is not accessible from the host machine. This can be fixed by adding the IP to the /etc/hosts file
-- **Ingress IP** is not accessible from the host machine. One possible error is Ingress Controller Failing **Fix** : https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync
+- **Ingress IP** is not accessible from the host machine. One possible error is Ingress Controller Failing (due to it not being availabe or active). **Possible Fix** : [Stack Overflow Link](https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync)
