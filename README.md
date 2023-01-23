@@ -135,7 +135,12 @@ This can be done by `eval $(minikube -p minikube docker-env)`
 
 *P.S. The current manifest allows all hosts to access the server using the Ingress IP (**minikube ip** in this case). This can be changed by adding a particular host in manifest and configuring the /etc/hosts file with sude perms*
 
-*P.S. Make sure NGINX Ingress Controller is up to date, it is a known attack vector with multiple vulnerabilities in the past. [CVE Link](https://support.f5.com/csp/article/K52125139#:~:text=This%20vulnerability%20may%20allow%20an,all%20secrets%20in%20the%20cluster.) [Related Article](https://lab.wallarm.com/two-critical-security-flaws-found-in-nginx-ingress-controller/)*
+
+*P.S. Make sure NGINX Ingress Controller is up to date, it is a known attack vector with multiple vulnerabilities in the past.
+
+**Resources**
+- [CVE Link](https://support.f5.com/csp/article/K52125139#:~:text=This%20vulnerability%20may%20allow%20an,all%20secrets%20in%20the%20cluster.)
+- [Related Article](https://lab.wallarm.com/two-critical-security-flaws-found-in-nginx-ingress-controller/)
 
 
 
