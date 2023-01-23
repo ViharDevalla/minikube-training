@@ -17,6 +17,7 @@ Table of contents
   - [Docker inside Minikube](#docker-inside-minikube)
   - [Deployment and Ingress Manifests](#deployment-and-ingress-manifests)
 - [Build Deploy Script](#build-deploy-script)
+- [Miscelleneous Bugs and Fixes](#miscelleneous-bugs-and-fixes)
 
 
 
@@ -111,8 +112,7 @@ for i in `kubectl api-resources | awk '{print $1}'`; do kubectl get $i; done
 ## Docker inside Minikube
 Since, this project requires a Private Docker image as the container for the pods, we need to export the docker-env to access the local docker registry.
 
-This can be done by `eval $(minikube -p minikube docker-env)
-`
+This can be done by `eval $(minikube -p minikube docker-env)`
 
 ## Deployment and Ingress Manifests
 `deployment.yaml` has the manifest to deploy the server using the container. Current manifest uses *1* replica and opens port 80 for access to the container webserver.
@@ -142,6 +142,6 @@ This is the entrypoint to the entire project.
 *P.S. `delete_deploy.sh` has also been created to delete the Deployment, Service and Ingress services.*
 
 # Miscelleneous Bugs and Fixes
-
+- **Docker Context Matters** : Remember to connect Minikube to docker daemon i.e. `eval $(minikube -p minikube docker-env)` **before** building the image as MiniKube only gets context and cannot access the registry details set before the `eval`.
 - **MiniKube IP** is not accessible from the host machine. This can be fixed by adding the IP to the /etc/hosts file
-- **Ingress IP** is not accessible from the host machine. **Fix** : https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync
+- **Ingress IP** is not accessible from the host machine. One possible error is Ingress Controller Failing **Fix** : https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync
