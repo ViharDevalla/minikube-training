@@ -1,5 +1,5 @@
 
-python3 server_test.py --test &
+python3 server.py --test &
 PID=$!
 python3 test.py
 
