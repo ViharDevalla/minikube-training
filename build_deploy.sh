@@ -4,8 +4,8 @@ python3 test.py
 if [ $? -eq 0 ];
 then
 unset KUBECONFIG
-minikube start
-minikube addons enable ingress
+#minikube start
+#minikube addons enable ingress
 
 eval $(minikube -p minikube docker-env)
 
