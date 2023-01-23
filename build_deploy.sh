@@ -7,8 +7,14 @@ if [ $? -eq 0 ];
 then
     kill $PID
     unset KUBECONFIG
-    minikube start
-    minikube addons enable ingress
+    MINICHECK=$(minikube status | grep kubelet | awk '{ print $2}')
+    echo $MINICHECK
+    if [ $MINICHECK != "Running" ];
+    then
+        minikube start
+        minikube addons enable ingress
+    fi
+
 
     eval $(minikube -p minikube docker-env)
 
@@ -38,8 +44,10 @@ then
 
     echo -e
     echo -e
-    echo "Testing the endpoint"
+    echo "Testing the IP endpoint - 192.168.49.2/athlete"
     curl $(minikube ip)/athlete
+    echo -e
+    echo "Testing the nip.io endpoint - c0a83102.nip.io/athlete"
     curl c0a83102.nip.io/athlete
     echo -e
     echo -e
