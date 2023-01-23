@@ -17,8 +17,8 @@ class TestingAthlete(unittest.TestCase):
         server.get_athlete.return_value = {'myFavoriteAthlete': 'Mahendra Singh Dhoni'}
         self.assertEqual(server.get_athlete(), {'myFavoriteAthlete': 'Mahendra Singh Dhoni'},"Mock Function is working")
 
-    """ def test_athlete_api_success(self):
-        with urlopen("http://localhost/athlete") as response:
+    def test_athlete_api_success(self):
+        with urlopen("http://localhost:3000/athlete") as response:
             self.assertEqual(response.code, 200, "Status Code is Correct")
             self.assertEqual(response.headers['Content-Type'], 'application/json',"JSON Header is Correct")
             self.assertEqual(json.loads(response.read()), {'myFavoriteAthlete': 'Mahendra Singh Dhoni'},"Response is Valid")
@@ -26,7 +26,7 @@ class TestingAthlete(unittest.TestCase):
     def test_athlete_api_fail(self):
         # Testing a non-existent endpoint
         try:
-            req = urlopen("http://localhost")
+            req = urlopen("http://localhost:3000")
         except HTTPError as e:
             self.assertEqual(e.code, 404, "404 Error is correct")
             self.assertEqual(e.headers['Content-Type'], 'application/json',"JSON Header is Correct")
@@ -34,7 +34,7 @@ class TestingAthlete(unittest.TestCase):
         except URLError as e:
             self.fail("Server not found")
         except Exception as e:
-            self.fail("Unexpected error: {}".format(e)) """
+            self.fail("Unexpected error: {}".format(e))
 
 
 

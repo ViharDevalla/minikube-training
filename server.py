@@ -1,5 +1,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
+import sys
+import os
 
 
 def get_athlete():
@@ -8,6 +10,11 @@ def get_athlete():
     }
 
 
+PORT = 80
+
+if(len(sys.argv)>1):
+    if(sys.argv[1] in ["--test","-t"]):
+        PORT = 3000
 
 class APIHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -25,7 +32,7 @@ class APIHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-
-    httpd = HTTPServer(('0.0.0.0', 80), APIHandler)
+    print(os.getpid())
+    httpd = HTTPServer(('0.0.0.0', PORT), APIHandler)
     httpd.serve_forever()
 
