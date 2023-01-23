@@ -40,6 +40,7 @@ then
     echo -e
     echo "Testing the endpoint"
     curl $(minikube ip)/athlete
+    curl c0a83102.nip.io/athlete
     echo -e
     echo -e
 
