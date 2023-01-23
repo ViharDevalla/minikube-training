@@ -11,7 +11,7 @@ spec:
     #- host:
     - http:
         paths:
-          - path: /
+          - path: /athlete
             pathType: Prefix
             backend:
               service:

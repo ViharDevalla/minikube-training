@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: athlete-container
-        image: vihardevalla/athlete-server
+        image: vihar/athlete-server
+        imagePullPolicy: Never
         ports:
           - containerPort: 80
 ---

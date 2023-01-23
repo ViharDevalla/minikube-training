@@ -1,25 +1,26 @@
+
 python3 test.py
 
 if [ $? -eq 0 ];
 then
+unset KUBECONFIG
+minikube start
+minikube addons enable ingress
+
+eval $(minikube -p minikube docker-env)
 
 
 echo "Docker Build"
 echo -e
-docker build -t vihardevalla/athlete-server .
+docker build -t vihar/athlete-server .
 echo -e
+
 
 echo -e
 echo "Docker Size"
 echo $(docker images | grep SIZE)
-echo $(docker images | grep vihardevalla/athlete-server)
+echo $(docker images | grep vihar/athlete-server)
 echo -e
-
-
-unset KUBECONFIG
-minikube start
-minikube addons enable ingress
-eval $(minikube -p minikube docker-env)
 
 echo -e
 kubectl apply -f deployment.yaml

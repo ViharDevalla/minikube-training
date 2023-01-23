@@ -11,7 +11,7 @@ def get_athlete():
 
 class APIHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/athlete':
+        if self.path == '/':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
