@@ -39,7 +39,10 @@ start_cluster(){
 
 wait_for_deploy(){
     echo "Waiting for Server to deploy"
-    sleep 10
+    until [ -n "$(kubectl get ingress ingress-app -o jsonpath='{.status.loadBalancer.ingress[0].ip}' | awk -F '.' '{print $1}')" ]; do
+        sleep 5
+        echo "Checking if Ingress IP is assigned"
+    done
 }
 
 
