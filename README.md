@@ -89,16 +89,23 @@ Now that the Server code is ready for deploy. The next step is containerizing it
 
 After comparing the sizes of the Python Docker Images by tags in [DockerHub](https://hub.docker.com/_/python/tags), it is seen that the **Alpine Image** is the smallest at **48MB**.
 
-Read More about why Alpine Images arent the best image for Python [here](https://pythonspeed.com/articles/base-image-python-docker-images/#:~:text=Why%20you%20shouldn't%20use,I%20recommend%20against%20using%20Alpine.) and [here](https://pythonspeed.com/articles/alpine-docker-python/)
+![Docker Size Comparison](readme-img/docker_sizes.PNG "Docker Size Comparison")
+*P.S. In case of dependencies, the better Python Image for Docker could be  `slim-bullseye` (**128MB**), the `latest` Python image is much bigger at **934MB***
+
+Read More about why Alpine Images arent the best image for Python.
+
+
 
 But in my case, I have **zero dependencies** which allows me to use the Alpine build with no issues.
 
-*P.S. In case of dependencies, the better Python Image for Docker could be  `slim-bullseye` (**128MB**)*
+
 
 Also the python server runs using a non-root user called **"worker"** instead of the usual root user. This could prevent security flaws like the [2019 RunC Bug](https://www.sdxcentral.com/articles/news/kubernetes-docker-containerd-impacted-by-runc-container-runtime-bug/2019/02/) from being re-engineered.
 
-Resources:
-[Making Small Docker Images](https://towardsdatascience.com/slimming-down-your-docker-images-275f0ca9337e)
+**Resources**
+- [Making Small Docker Images](https://towardsdatascience.com/slimming-down-your-docker-images-275f0ca9337e)
+- [Why I dont recommend Alpine](https://pythonspeed.com/articles/base-image-python-docker-images/#:~:text=Why%20you%20shouldn't%20use,I%20recommend%20against%20using%20Alpine.)
+- [Alpine Docker Python](https://pythonspeed.com/articles/alpine-docker-python/)
 
 # Minikube
 
