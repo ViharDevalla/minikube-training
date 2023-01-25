@@ -93,7 +93,7 @@ After comparing the sizes of the Python Docker Images by tags in [DockerHub](htt
 
 *P.S. In case of dependencies, the better Python Image for Docker could be  `slim-bullseye` (**128MB**), the `latest` Python image is much bigger at **934MB***
 
-Read More about why Alpine Images arent the best image for Python.
+Read More about why Alpine Images arent the best image for Python from [here](https://pythonspeed.com/articles/base-image-python-docker-images/#:~:text=Why%20you%20shouldn't%20use,I%20recommend%20against%20using%20Alpine.).
 
 
 
@@ -144,7 +144,7 @@ This can be done by `eval $(minikube -p minikube docker-env)`
 *P.S. The current manifest allows all hosts to access the server using the Ingress IP (**minikube ip** in this case). This can be changed by adding a particular host in manifest and configuring the /etc/hosts file with sude perms*
 
 
-*P.S. Make sure NGINX Ingress Controller is up to date, it is a known attack vector with multiple vulnerabilities in the past.
+*P.S. Make sure NGINX Ingress Controller is up to date, it is a known attack vector with multiple vulnerabilities in the past.*
 
 **Resources**
 - [CVE Link](https://support.f5.com/csp/article/K52125139#:~:text=This%20vulnerability%20may%20allow%20an,all%20secrets%20in%20the%20cluster.)
