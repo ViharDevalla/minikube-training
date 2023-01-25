@@ -1,7 +1,7 @@
 
-python3 server.py --test &
+python3 docker-build/server.py --test &
 PID=$!
-python3 test.py
+python3 docker-build/test.py
 
 if [ $? -eq 0 ];
 then
@@ -21,7 +21,7 @@ then
 
     echo "Docker Build"
     echo -e
-    docker build -t vihar/athlete-server .
+    docker build -t vihar/athlete-server docker-build/
     echo -e
 
 
@@ -32,10 +32,10 @@ then
     echo -e
 
     echo -e
-    kubectl apply -f deployment.yaml
-    kubectl apply -f service.yaml
+    kubectl apply -f manifests/deployment.yaml
+    kubectl apply -f manifests/service.yaml
     kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-    kubectl apply -f ingress.yaml
+    kubectl apply -f manifests/ingress.yaml
     echo -e
 
     echo -e
