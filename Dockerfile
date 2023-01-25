@@ -1,7 +1,7 @@
 # Dockerfile for athlete-server
 
 FROM python:3.9-alpine3.17
-RUN adduser -D worker
+RUN adduser -u 1000 -D worker
 USER worker
 WORKDIR /home/worker
 COPY --chown=worker:worker . .

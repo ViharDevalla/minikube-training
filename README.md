@@ -159,6 +159,24 @@ This is the entrypoint to the entire project.
 *P.S. `delete_deploy.sh` has also been created to delete the Deployment, Service and Ingress services.*
 
 # Miscelleneous Bugs and Fixes
-- **Docker Context Matters** : Remember to connect Minikube to docker daemon i.e. `eval $(minikube -p minikube docker-env)` **before** building the image as MiniKube only gets context and cannot access the registry details set before the `eval`.
-- **MiniKube IP** is not accessible from the host machine. This can be fixed by adding the IP to the /etc/hosts file
-- **Ingress IP** is not accessible from the host machine. One possible error is Ingress Controller Failing (due to it not being availabe or active). **Possible Fix** : [Stack Overflow Link](https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync)
+###Docker Context Matters
+Remember to connect Minikube to docker daemon i.e. `eval $(minikube -p minikube docker-env)` **before** building the image as MiniKube only gets context and cannot access the registry details set before the `eval`.
+
+###MiniKube IP Errors
+IP not accessible from the host machine. This can be fixed by adding the IP to the /etc/hosts file
+
+
+###Ingress IP Errors
+IP not accessible from the host machine. One possible error is Ingress Controller Failing (due to it not being availabe or active).
+- **Possible Fix** : [Stack Overflow Link](https://stackoverflow.com/questions/69932480/minikube-ingress-stuck-in-scheduled-for-sync)
+
+###ClusterIP / NodePort / LoadBalancer / Ingress
+
+These services allow the deployment to be accessed.
+[Source](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)
+
+- **ClusterIP** is the default service which doesnt expose any port externally (only traffic from Kubernetes / Kubernetes Proxy allowed).
+- **NodePort** is the primitive way to expose a **one service per port**. You can only use ports 30000–32767.
+- **LoadBalancer** is the standard way to expose a service to the internet. But each service will have seperate Load Balancer IP.
+- **Ingress** is the router in front of all services (and ClusterIP/NodePort) which can expose **multiple services on same IP**
+

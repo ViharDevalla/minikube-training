@@ -33,7 +33,7 @@ then
 
     echo -e
     kubectl apply -f deployment.yaml
-    #kubectl expose deployment athlete-server-deploy --type=NodePort --port=80
+    kubectl apply -f service.yaml
     kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
     kubectl apply -f ingress.yaml
     echo -e
